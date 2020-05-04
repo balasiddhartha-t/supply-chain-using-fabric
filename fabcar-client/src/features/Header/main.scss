@@ -1,0 +1,35 @@
+@import 'src/styles/config.scss';
+
+.header {
+    position: fixed;
+    top: 0;
+    background: $black;
+    color: $white;
+    width: 100%;
+    height: $header-height;
+    font-size: 24px;
+    line-height: $header-height;
+}
+
+.logo {
+    margin-left: 20px;
+    width: auto;
+    height: $header-height;
+}
+
+.user {
+    padding-right: 50px;
+}
+
+.logout {
+    border: none;
+    background-color: transparent;
+    color: $white;
+    position: relative;
+    top: 5px;
+    padding-left: 10px;
+    font-size: 28px;
+    &:hover {
+        cursor: pointer;
+    }
+}

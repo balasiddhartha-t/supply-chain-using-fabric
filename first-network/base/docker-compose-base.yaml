@@ -1,0 +1,244 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  orderer.fcaorderer.com:
+    container_name: orderer.fcaorderer.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/fcaorderer.com/orderers/orderer.fcaorderer.com/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/fcaorderer.com/orderers/orderer.fcaorderer.com/tls/:/var/hyperledger/orderer/tls
+        - orderer.fcaorderer.com:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+
+  peer0.jeep.fca.com:
+    container_name: peer0.jeep.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.jeep.fca.com
+      - CORE_PEER_ADDRESS=peer0.jeep.fca.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.jeep.fca.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.jeep.fca.com:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.jeep.fca.com:7051
+      - CORE_PEER_LOCALMSPID=JeepMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeep.fca.com/peers/peer0.jeep.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeep.fca.com/peers/peer0.jeep.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.jeep.fca.com:/var/hyperledger/production
+    ports:
+      - 7051:7051
+
+  peer1.jeep.fca.com:
+    container_name: peer1.jeep.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.jeep.fca.com
+      - CORE_PEER_ADDRESS=peer1.jeep.fca.com:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.jeep.fca.com:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.jeep.fca.com:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.jeep.fca.com:7051
+      - CORE_PEER_LOCALMSPID=JeepMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeep.fca.com/peers/peer1.jeep.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeep.fca.com/peers/peer1.jeep.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.jeep.fca.com:/var/hyperledger/production
+
+    ports:
+      - 8051:8051
+
+  peer0.jeepdealer.fca.com:
+    container_name: peer0.jeepdealer.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.jeepdealer.fca.com
+      - CORE_PEER_ADDRESS=peer0.jeepdealer.fca.com:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.jeepdealer.fca.com:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.jeepdealer.fca.com:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.jeepdealer.fca.com:10051
+      - CORE_PEER_LOCALMSPID=JeepdealerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeepdealer.fca.com/peers/peer0.jeepdealer.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeepdealer.fca.com/peers/peer0.jeepdealer.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.jeepdealer.fca.com:/var/hyperledger/production
+    ports:
+      - 9051:9051
+
+  peer1.jeepdealer.fca.com:
+    container_name: peer1.jeepdealer.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.jeepdealer.fca.com
+      - CORE_PEER_ADDRESS=peer1.jeepdealer.fca.com:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.jeepdealer.fca.com:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.jeepdealer.fca.com:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.jeepdealer.fca.com:9051
+      - CORE_PEER_LOCALMSPID=JeepdealerMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeepdealer.fca.com/peers/peer1.jeepdealer.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeepdealer.fca.com/peers/peer1.jeepdealer.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.jeepdealer.fca.com:/var/hyperledger/production
+    ports:
+      - 10051:10051
+
+  peer0.jeeplogistics.fca.com:
+    container_name: peer0.jeeplogistics.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.jeeplogistics.fca.com
+      - CORE_PEER_ADDRESS=peer0.jeeplogistics.fca.com:11051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.jeeplogistics.fca.com:11052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.jeeplogistics.fca.com:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.jeeplogistics.fca.com:12051
+      - CORE_PEER_LOCALMSPID=JeeplogisticsMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeeplogistics.fca.com/peers/peer0.jeeplogistics.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeeplogistics.fca.com/peers/peer0.jeeplogistics.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.jeeplogistics.fca.com:/var/hyperledger/production
+    ports:
+      - 11051:11051
+
+  peer1.jeeplogistics.fca.com:
+    container_name: peer1.jeeplogistics.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.jeeplogistics.fca.com
+      - CORE_PEER_ADDRESS=peer1.jeeplogistics.fca.com:12051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.jeeplogistics.fca.com:12052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.jeeplogistics.fca.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.jeeplogistics.fca.com:11051
+      - CORE_PEER_LOCALMSPID=JeeplogisticsMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeeplogistics.fca.com/peers/peer1.jeeplogistics.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeeplogistics.fca.com/peers/peer1.jeeplogistics.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.jeeplogistics.fca.com:/var/hyperledger/production
+    ports:
+      - 12051:12051
+
+
+
+  peer0.jeeptrucking.fca.com:
+    container_name: peer0.jeeptrucking.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.jeeptrucking.fca.com
+      - CORE_PEER_ADDRESS=peer0.jeeptrucking.fca.com:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.jeeptrucking.fca.com:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.jeeptrucking.fca.com:13051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.jeeptrucking.fca.com:14051
+      - CORE_PEER_LOCALMSPID=JeeptruckingMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeeptrucking.fca.com/peers/peer0.jeeptrucking.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeeptrucking.fca.com/peers/peer0.jeeptrucking.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.jeeptrucking.fca.com:/var/hyperledger/production
+    ports:
+      - 13051:13051
+
+  peer1.jeeptrucking.fca.com:
+    container_name: peer1.jeeptrucking.fca.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.jeeptrucking.fca.com
+      - CORE_PEER_ADDRESS=peer1.jeeptrucking.fca.com:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.jeeptrucking.fca.com:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.jeeptrucking.fca.com:14051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.jeeptrucking.fca.com:13051
+      - CORE_PEER_LOCALMSPID=JeeptruckingMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/jeeptrucking.fca.com/peers/peer1.jeeptrucking.fca.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/jeeptrucking.fca.com/peers/peer1.jeeptrucking.fca.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.jeeptrucking.fca.com:/var/hyperledger/production
+    ports:
+      - 14051:14051
+
+  peer0.cbp.gov:
+    container_name: peer0.cbp.gov
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.cbp.gov
+      - CORE_PEER_ADDRESS=peer0.cbp.gov:15051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:15051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.cbp.gov:15052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:15052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.cbp.gov:15051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.cbp.gov:16051
+      - CORE_PEER_LOCALMSPID=CbpMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/cbp.gov/peers/peer0.cbp.gov/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/cbp.gov/peers/peer0.cbp.gov/tls:/etc/hyperledger/fabric/tls
+        - peer0.cbp.gov:/var/hyperledger/production
+    ports:
+      - 15051:15051
+
+  peer1.cbp.gov:
+    container_name: peer1.cbp.gov
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.cbp.gov
+      - CORE_PEER_ADDRESS=peer1.cbp.gov:16051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:16051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.cbp.gov:16052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:16052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.cbp.gov:16051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.cbp.gov:15051
+      - CORE_PEER_LOCALMSPID=CbpMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/cbp.gov/peers/peer1.cbp.gov/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/cbp.gov/peers/peer1.cbp.gov/tls:/etc/hyperledger/fabric/tls
+        - peer1.cbp.gov:/var/hyperledger/production
+    ports:
+      - 16051:16051

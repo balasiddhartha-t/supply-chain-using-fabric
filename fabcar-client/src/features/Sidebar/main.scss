@@ -1,0 +1,105 @@
+@import 'src/styles/config.scss';
+
+.sidebar {
+  position: fixed;
+  z-index: 1;
+}
+
+.sidenav {
+  @extend .sidebar;
+  height: 100%;
+  width: $sidebar;
+  top: $header-height;
+  left: 0;
+  background-color: $dark-grey;
+  overflow-x: hidden;
+  padding-top: 20px;
+  transition: 0.5s;  
+}
+
+.sidenav-collapse {
+  @extend .sidebar;
+  height: 100%;
+  width: $sidebar-collapse;
+  top: 70px;
+  left: 0;
+  background-color: $dark-grey;
+  overflow-x: hidden;
+  padding-top: 20px;
+  transition: 0.5s;
+}
+
+.nav {
+  height: 0;
+}
+
+.mobClose {
+  display: none
+}
+
+.mobOpen {
+  height: 0;
+  width: 0;
+}
+
+@media only screen and (max-width: 601px) {
+  .nav {
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    z-index: 1;
+    background-color: $dark-grey;
+  }
+  .sidenav {
+    z-index: 2;
+  }
+
+  .mobOpen {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0px;
+    left: 0;
+    background-color: $dark-grey;
+    overflow-x: hidden;
+    transition: 0.5s ease;
+  }
+}
+
+.sidelink {
+  color: $light-grey;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  width: 100%;
+  padding-left: 20px;
+}
+
+.linkText {
+  padding-left: 20px;
+}
+
+.sidelink:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  color: $white;
+}
+
+table::-webkit-scrollbar {
+  width: 5px;
+}
+
+table::-webkit-scrollbar-track {
+  background: #222222;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+table::-webkit-scrollbar-thumb {
+  background: $contrast-orange;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}

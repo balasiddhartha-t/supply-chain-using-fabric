@@ -1,0 +1,131 @@
+@import 'src/styles/config.scss';
+
+.timeline {
+  position: relative;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background-color: $grey;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -4px;
+}
+
+/* Container around content */
+.containerBox {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+}
+
+/* The circles on the timeline */
+.containerBox::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  background-color: $white;
+  border: 3px solid $contrast-orange;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the container to the left */
+.leftBox {
+  left: -80px;
+}
+
+/* Place the container to the right */
+.rightBox {
+  left: 50%;
+}
+
+.contentBefore {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    border: solid $dark-grey;
+    border-width: 10px;
+    border-color: transparent;
+}
+
+/* Add arrows to the left container (pointing right) */
+.leftBox::before {
+  @extend .contentBefore;
+  right: 30px;
+  border-right-width: 0;
+  border-left-color: $dark-grey;
+}
+
+/* Add arrows to the right container (pointing left) */
+.rightBox::before {
+  @extend .contentBefore;
+  left: 30px;
+  border-left-width: 0;
+  border-right-color: $dark-grey;
+}
+
+/* Fix the circle for containers on the right side */
+.rightBox::after {
+  left: -16px;
+}
+
+/* The actual content */
+.content {
+  padding: 20px;
+  background-color: $dark-grey;
+  position: relative;
+  border-radius: 10px;
+  color: $light-grey;
+}
+
+.date {
+  color: $white;
+}
+
+.tab {
+  padding-left: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .timeline {
+    left: -80px;
+  }
+
+  .timeline::after {
+    left: 30px;
+  }
+
+  .containerBox {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  .containerBox::before {
+    left: 60px;
+    border: medium solid white;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+  }
+
+  .leftBox, .rightBox {
+    left: 0%;
+  }
+
+  .leftBox::after, .rightBox::after {
+    left: 15px;
+  }
+}

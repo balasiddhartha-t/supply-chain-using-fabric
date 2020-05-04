@@ -1,0 +1,43 @@
+{
+  "plugins": [
+		"stylelint-declaration-block-order"
+	],
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "selector-pseudo-element-colon-notation": "single",
+    "selector-no-vendor-prefix": true,
+    "at-rule-no-unknown": null,
+    "no-duplicate-selectors": true,
+    "selector-type-no-unknown": true,
+    "property-no-unknown": true,
+    "selector-class-pattern": "^[^-][a-z0-9-]*(__[a-z0-9-]+)?(--[a-z0-9-]+)?$",
+    "string-quotes": "single",
+    "declaration-no-important": true,
+    "selector-no-qualifying-type": [
+      true
+    ],
+    "max-nesting-depth": [
+      5,
+      {ignore: ["blockless-at-rules"]}
+    ],
+    "length-zero-no-unit": true,
+    "number-leading-zero": "never",
+    "no-descending-specificity": null,
+    "plugin/declaration-block-order": [
+      {
+        type: 'at-rule',
+        name: 'include'
+      },
+      {
+        type: 'at-rule',
+        name: 'include',
+        parameter: 'gcss'
+      },
+      "declarations"
+		],
+    "max-line-length": 120
+  },
+  "ignoreFiles": [
+    "**/*.js"
+  ]
+}

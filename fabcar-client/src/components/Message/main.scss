@@ -1,0 +1,13 @@
+@import 'src/styles/config.scss';
+
+.message {
+    margin-top: 20px;
+    width: 100%;
+}
+.success {
+    color: $alert-success;
+}
+
+.failure {
+    color: $alert-failure;
+}

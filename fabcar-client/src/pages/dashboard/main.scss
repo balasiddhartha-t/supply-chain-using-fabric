@@ -1,0 +1,18 @@
+@import 'src/styles/config.scss';
+
+.main {
+    padding-top: $header-height;
+    margin-left: $sidebar;
+    transition: 0.5s;
+}
+.main-extend {
+    padding-top: $header-height;
+    margin-left: $sidebar-collapse;
+    transition: 0.5s;
+}
+
+@media only screen and (max-width: 601px) {
+    .main, .main-extend {
+        margin-left: $sidebar-collapse;
+    }
+}

@@ -1,0 +1,55 @@
+@import 'src/styles/config.scss';
+
+$calcHeight : calc(100vh - 200px);
+
+.dashboardBody {
+    padding: 50px;
+    background-color: darkgrey;
+    min-height: $calcHeight;
+}
+
+.filters {
+    width: 200px;
+    padding-right: 50px;
+}
+
+.table-container {
+    display: flow-root;
+}
+
+.entries {
+    font-size: 18px;
+}
+
+.customTable {
+    display: block;
+    border-collapse: collapse;
+    margin: auto;
+    overflow: auto;
+    height: $calcHeight;
+    width: fit-content;
+    max-width: 100%;
+    
+    td, th {
+        border: 1px solid $border;
+        padding: 8px;
+    }
+    
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: $dark-grey;
+        color: $white;
+    }
+    
+    tr:nth-child(2n){
+        background-color: $light-grey;
+    }
+}
+
+@media only screen and (max-width: 601px) {
+    .filters {
+        width: 90%;
+    }
+}

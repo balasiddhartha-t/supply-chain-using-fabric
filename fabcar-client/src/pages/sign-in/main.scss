@@ -1,0 +1,27 @@
+@import 'src/styles/config.scss';
+$intro-width: 30%;
+
+.intro {
+    left: 0;
+    background-color: $dark-grey;
+    width: $intro-width;
+    height: 100vh;
+}
+.login {
+    padding-left: $intro-width;
+    background-color: $light-grey;
+    height: 100vh;
+}
+.logoContainer {
+    position: relative;
+    top: 50%;
+    transform: translateY(-70%);
+}
+.logo-2 {
+    width: 50%;
+}
+.welcome {
+    font-size: 24px;
+    color: $white;
+    text-align: left;
+}

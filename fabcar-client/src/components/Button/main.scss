@@ -1,0 +1,18 @@
+@import 'src/styles/config.scss';
+
+.btn-submit {
+    width: 200px;
+    height: 40px;
+    margin: 3px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    background-color: $dark-grey;
+    color: $white;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);
+    transition: 0.3s;
+    &:hover {
+        cursor: pointer;
+    }
+}

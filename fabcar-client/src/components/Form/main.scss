@@ -1,0 +1,51 @@
+@import 'src/styles/config.scss';
+
+.form {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    background-color: $grey;
+    padding: 40px;
+}
+
+.form-fields {
+    width: 220px;
+    height: 30px;
+    margin-bottom: 20px;
+    border: 1px solid $border;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);
+}
+
+.form-label {
+    @extend .form-fields;
+    display: inline-block;
+    color: $white;
+    background-color: $dark-grey;
+}
+
+.form-input {
+    @extend .form-fields;
+    padding-left: 5px;
+}
+
+.form-submit {
+    @extend .form-fields;
+    background-color: $dark-grey;
+    color: $white;
+    margin-bottom: 0;
+}
+.form-link {
+    background-color: transparent;
+    border: none;
+    margin-top: 20px;
+    text-decoration: underline;
+    color: $light-grey;
+}
+.form-submit, .form-link {
+    &:hover {
+        cursor: pointer;
+    }
+}
