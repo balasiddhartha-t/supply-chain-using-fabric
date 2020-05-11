@@ -7,6 +7,9 @@ Docker
 
 Docker-compose
 
+node v10.0 or higher
+
+
 ### Install Hyperledger Fabric Binaries
 
 First Install Hyperledger Fabric Binaries using the following curl command.
